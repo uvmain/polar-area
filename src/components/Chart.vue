@@ -1,28 +1,52 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref, defineProps, watchEffect } from 'vue'
 import Chart from 'chart.js/auto'
+import uniqolor from 'uniqolor'
+
+let chartInstance = null; // Store the chart instance
+
+const props = defineProps({
+  inputs: {
+    type: Array,
+    required: true
+  }
+})
+
+const data = ref([])
+const labels = []
+const datasets = []
+const colours = []
+
+function generateData() {
+  labels.length = 0;
+  datasets.length = 0;
+  colours.length = 0;
+  for (const input of props.inputs) {
+    labels.push(input.label)
+    datasets.push(input.value)
+    colours.push(uniqolor(input.label, { format: 'rgb' }).color)
+  }
+  data.value = {
+    labels,
+    datasets,
+    colours
+  }
+}
 
 async function generateChart() {
-  const data = [
-    { year: 2010, count: 10 },
-    { year: 2011, count: 20 },
-    { year: 2012, count: 15 },
-    { year: 2013, count: 25 },
-    { year: 2014, count: 22 },
-    { year: 2015, count: 30 },
-    { year: 2016, count: 28 },
-  ];
-
-  new Chart(
+  if (chartInstance) {
+    chartInstance.destroy(); // Destroy the previous chart instance if it exists
+  }
+  chartInstance = new Chart(
     document.getElementById('chart'),
     {
       type: 'polarArea',
       data: {
-        labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4'],
+        labels: labels,
         datasets: [
           {
-            data: [10, 20, 30, 40],
-            backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)'],
+            data: datasets,
+            backgroundColor: colours,
           },
         ],
       },
@@ -45,7 +69,6 @@ async function generateChart() {
           },
           title: {
             display: false,
-            text: 'Chart.js Polar Area Chart With Centered Point Labels'
           }
         }
       },
@@ -54,13 +77,20 @@ async function generateChart() {
 };
 
 onMounted(() => {
+  generateData()
+  generateChart()
+})
+
+// Watch for changes in the inputs prop and update the chart data
+watchEffect(() => {
+  generateData()
   generateChart()
 })
 </script>
 
 <template>
   <div>
-    <div style="width: 800px;">
+    <div>
       <canvas id="chart" />
     </div>
   </div>
