@@ -12,31 +12,32 @@ const inputs = ref([
   { label: "Testing", value: "3" }
 ])
 
-const labels = ref()
-
 </script>
 
 <template>
   <div class="chart-container">
     <div class="input-container">
-      <div v-for="(input, index) in inputs" :key="index" class="input-pair">
-        <input :id="'label' + index" v-model="input.label" type="text" class="input-item">
-        <input :id="'value' + index" v-model="input.value" type="text" class="input-item">
+      <div v-for="(input, index) in inputs" :key="index">
+        <div v-if="(`${input.label}${input.value}`.length > 0 )" class="input-pair">
+          <input :id="'label' + index" v-model="input.label" type="text" class="input-item">
+          <input :id="'value' + index" v-model="input.value" type="text" class="input-item">
+        </div>
       </div>
+      
+      <DownloadButton class="download-button"/>
     </div>
     <div id="capture-div" class="chart">
       <Chart :inputs="inputs"/>
     </div>
-    <DownloadButton />
   </div>
 </template>
 
 <style scoped>
 .chart-container {
-  display: flexbox;
-  justify-content: flex-start;
-  align-items: flex-center;
-  height: 100vh;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   background-color:lightgray;
 }
 .input-container {
@@ -61,5 +62,8 @@ const labels = ref()
 .chart {
   padding: 10px;
   min-width: 30vw;
+}
+.download-button {
+  margin-top: 40px;
 }
 </style>

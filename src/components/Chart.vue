@@ -22,9 +22,11 @@ function generateData() {
   datasets.length = 0
   colours.length = 0
   for (const input of props.inputs) {
-    labels.push(input.label)
-    datasets.push(input.value)
-    colours.push(uniqolor(input.label, { format: 'rgb' }).color)
+    if (input.label && input.value) {
+      labels.push(input.label)
+      datasets.push(input.value)
+      colours.push(uniqolor(input.label, { format: 'rgb' }).color)
+    }
   }
   data.value = {
     labels,
