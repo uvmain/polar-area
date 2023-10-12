@@ -32,8 +32,8 @@ function removeInputPair(index) {
       <button @click="addInputPair" class="add-button">Add Dataset</button>
       <DownloadButton class="download-button"/>
     </div>
-    <div id="capture-div" class="chart">
-      <Chart :inputs="inputs"/>
+    <div class="chart">
+      <Chart id="capture-div" :inputs="inputs"/>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ function removeInputPair(index) {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background-color:lightgray;
+  background-color:snow;
 }
 .input-container {
   padding: 20px;
@@ -61,7 +61,7 @@ function removeInputPair(index) {
   border: 2px solid #ccc;
   border-radius: 10px;
   font-size: 16px;
-  background-color: snow;
+  background-color: white;
   padding: 12px;
 }
 

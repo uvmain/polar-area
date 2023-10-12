@@ -62,16 +62,20 @@ async function generateChart() {
               font: {
                 size: 18
               }
+            },
+            ticks: {
+              z: 40,
+              stepSize: 1
             }
-          }
+          },
         },
         plugins: {
           legend: {
-            display: false
+            display: false,
           },
           title: {
             display: false,
-          }
+          },
         }
       },
     }
