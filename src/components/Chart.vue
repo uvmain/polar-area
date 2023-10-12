@@ -89,8 +89,6 @@ watchEffect(() => {
 
 <template>
   <div>
-    <div>
-      <canvas id="chart" />
-    </div>
+    <canvas id="chart" />
   </div>
 </template>

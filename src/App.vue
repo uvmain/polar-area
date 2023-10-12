@@ -1,5 +1,6 @@
 <script setup>
 import Chart from './components/Chart.vue'
+import DownloadButton from './components/DownloadButton.vue'
 import { ref } from 'vue'
 
 const inputs = ref([
@@ -27,9 +28,10 @@ const labels = ref()
         </div>
       </div>
     </div>
-    <div class="chart">
+    <div id="capture-div" class="chart">
       <Chart :inputs="inputs"/>
     </div>
+    <DownloadButton />
   </div>
 </template>
 
