@@ -25,7 +25,7 @@ function generateData() {
     if (input.label && input.value) {
       labels.push(input.label)
       datasets.push(input.value)
-      colours.push(uniqolor(input.label, { format: 'rgb' }).color)
+      colours.push(`${uniqolor(input.label, { format: 'rgb' }).color}`.replace(')', ', 0.6)').replace('rgb', 'rgba'))
     }
   }
   data.value = {
