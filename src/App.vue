@@ -12,18 +12,24 @@ const inputs = ref([
   { label: "Testing", value: "3" }
 ])
 
+function addInputPair() {
+  inputs.value.push({ label: '', value: '' })
+}
+
+function removeInputPair(index) {
+  inputs.value.splice(index, 1)
+}
 </script>
 
 <template>
   <div class="chart-container">
     <div class="input-container">
-      <div v-for="(input, index) in inputs" :key="index">
-        <div v-if="(`${input.label}${input.value}`.length > 0 )" class="input-pair">
-          <input :id="'label' + index" v-model="input.label" type="text" class="input-item">
-          <input :id="'value' + index" v-model="input.value" type="text" class="input-item">
-        </div>
+      <div v-for="(input, index) in inputs" :key="index" class="input-pair">
+        <input :id="'label' + index" v-model="input.label" type="text" class="input-item">
+        <input :id="'value' + index" v-model="input.value" type="text" class="input-item">
+        <button @click="removeInputPair(index)" class="remove-button">Remove</button>
       </div>
-      
+      <button @click="addInputPair" class="add-button">Add Dataset</button>
       <DownloadButton class="download-button"/>
     </div>
     <div id="capture-div" class="chart">
@@ -65,5 +71,25 @@ const inputs = ref([
 }
 .download-button {
   margin-top: 40px;
+}
+.remove-button {
+  background-color: #acacac;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px;
+  font-size: smaller;
+}
+
+.add-button {
+  margin-top: 10px;
+  background-color: #acacac;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 </style>
