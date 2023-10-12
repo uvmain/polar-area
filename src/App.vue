@@ -1,44 +1,67 @@
 <script setup>
-import Chart from 'chart.js/auto'
-import { onMounted } from 'vue';
+import Chart from './components/Chart.vue'
+import { ref } from 'vue';
 
-async function generateChart() {
-  const data = [
-    { year: 2010, count: 10 },
-    { year: 2011, count: 20 },
-    { year: 2012, count: 15 },
-    { year: 2013, count: 25 },
-    { year: 2014, count: 22 },
-    { year: 2015, count: 30 },
-    { year: 2016, count: 28 },
-  ];
+const inputs = ref([
+  { label: "Sales", value: "" },
+  { label: "Traffic", value: "" },
+  { label: "Skills", value: "" },
+  { label: "Energy", value: "" },
+  { label: "Features", value: "" }
+])
 
-  new Chart(
-    document.getElementById('chart'),
-    {
-      type: 'polarArea',
-      data: {
-        labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4'],
-        datasets: [
-          {
-            data: [10, 20, 30, 40],
-            backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)'],
-          },
-        ],
-      },
-    }
-  )
-};
-
-onMounted(() => {
-  generateChart()
-})
 </script>
 
 <template>
-  <div>
-    <div style="width: 800px;">
-      <canvas id="chart" />
+  <div class="chart-container">
+    <div class="input-container">
+      <div v-for="(input, index) in inputs" :key="index" class="input-pair">
+        <div class="input-item">
+          <label :for="'label' + index">Label {{ index + 1 }}</label>
+          <input :id="'label' + index" v-model="input.label" type="text">
+        </div>
+        <div class="input-item">
+          <label :for="'value' + index">Value {{ index + 1 }}</label>
+          <input :id="'value' + index" v-model="input.value" type="text">
+        </div>
+      </div>
+    </div>
+    <div class="chart">
+      <!-- Include your chart component here -->
+      <Chart />
     </div>
   </div>
 </template>
+
+<style scoped>
+.chart-container {
+  display: flex;
+  background-color:lightgray;
+}
+
+.input-container {
+  flex: 1;
+  padding: 20px 50px 20px 20px;
+}
+
+.input-pair {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.input-item {
+  flex: 1;
+  margin-right: 10px;
+  color: black;
+}
+
+.input-item input {
+  color: black;
+  background-color: white;
+}
+
+.chart {
+  flex: 2;
+  padding: 20px;
+}
+</style>
