@@ -20,12 +20,8 @@ const labels = ref()
   <div class="chart-container">
     <div class="input-container">
       <div v-for="(input, index) in inputs" :key="index" class="input-pair">
-        <div class="input-item">
-          <input :id="'label' + index" v-model="input.label" type="text">
-        </div>
-        <div class="input-item">
-          <input :id="'value' + index" v-model="input.value" type="text">
-        </div>
+        <input :id="'label' + index" v-model="input.label" type="text" class="input-item">
+        <input :id="'value' + index" v-model="input.value" type="text" class="input-item">
       </div>
     </div>
     <div id="capture-div" class="chart">
@@ -53,15 +49,13 @@ const labels = ref()
 }
 
 .input-item {
-  flex: 2;
-  align-items: flex-center;
+  color: black;
   margin-right: 10px;
-  color: black;
-}
-
-.input-item input {
-  color: black;
-  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: snow;
+  padding: 12px;
 }
 
 .chart {

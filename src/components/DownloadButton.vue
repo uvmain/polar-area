@@ -32,6 +32,6 @@ async function downloadImage() {
 <style scoped>
 button {
   color: black;
-  background-color:white;
+  background-color:snow;
 }
 </style>
